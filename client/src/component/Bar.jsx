@@ -1,20 +1,33 @@
 import React from "react";
-import AddTask from "./AddTask.jsx";
+import modalState from "../store/modalState.js";
+import postsState from "../store/postsState.js";
+
 export default function Filter() {
+  const setVisibleAdd = modalState((state) => state.setVisibleAdd);
+  const { filter, setFilter, sorted, setSort} = postsState();
+
   return (
-    <div class="d-flex justify-content-end align-items-center mb-4 pt-2">
-      <button className="btn btn-success ms-3 me-auto" onClick={<AddTask/>}>Add new</button>
-      <p class="small mb-0 me-2 text-muted">Filter</p>
-      <select>
-        <option value="1">All</option>
-        <option value="2">Completed</option>
-        <option value="3">Active</option>
-        <option value="4">Has due date</option>
+    <div className="d-flex justify-content-end align-items-center mb-4 pt-2 mt-2 container">
+      <button className="btn btn-success ms-3 me-auto" onClick={() => setVisibleAdd(true)} >
+        Добавить
+      </button>
+      <input
+        type="text"
+        value={filter.title}
+        onChange={(e) => setFilter({ title: e.target.value })}
+        className="form-control-sm me-2 "
+        placeholder="Поиск"
+      />
+      <p className="small mb-0 me-2 text-muted">Фильтр</p>
+      <select value={filter.status} onChange={(e) => setFilter({ status: e.target.value })} >
+        <option value="">Все</option>
+        <option value="Завершена">Завершенные</option>
+        <option value="Активна">Активные</option>
       </select>
-      <p class="small mb-0 ms-4 me-2 text-muted">Sort</p>
-      <select className="me-3">
-        <option value="1">Added date</option>
-        <option value="2">Due date</option>
+      <p className="small mb-0 ms-2 me-2 text-muted">Сортировка</p>
+      <select className="me-3" value={sorted.direction} onChange={(e) => setSort({ direction: e.target.value })}>
+        <option value="asc">По возрастанию</option>
+        <option value="desc">По убыванию</option>
       </select>
     </div>
   );
