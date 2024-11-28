@@ -7,7 +7,7 @@ export default function AddTask() {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const {visibleAdd, setVisibleAdd} = modalState();
-  const {posts, addPosts} = postsState();
+  const addPosts = postsState((state) => state.addPosts);
 
     const connectHandler = () => {
       setVisibleAdd(false);
