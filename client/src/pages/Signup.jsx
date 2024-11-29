@@ -5,6 +5,12 @@ import loginState from "../store/loginState.js";
 export default function Signup() {
     const navigate = useNavigate();
     const setIsAuth = loginState((state) => state.setIsAuth);
+    
+    const signup = () => {
+      setIsAuth(true)
+      localStorage.setItem('auth', 'true')
+    }
+
   return (
     <div className="container">
       <h1>Регистрация</h1>
@@ -27,7 +33,7 @@ export default function Signup() {
           />
         </div>
         <div className="input-group mb-3">
-          <button className="btn btn-info" onClick={() => setIsAuth(true)}>
+          <button className="btn btn-info" onClick={() => signup()}>
             Регистрация
           </button>
         </div>

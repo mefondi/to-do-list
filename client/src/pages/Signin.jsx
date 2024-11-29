@@ -5,6 +5,12 @@ import loginState from "../store/loginState.js";
 export default function Signin() {
   const navigate = useNavigate();
   const setIsAuth = loginState((state) => state.setIsAuth);
+
+  const signin = () => {
+    setIsAuth(true)
+    localStorage.setItem('auth', 'true')
+  }
+
   return (
     <div className="container">
       <h1>Вход</h1>
@@ -20,7 +26,7 @@ export default function Signin() {
           />
         </div>
         <div className="input-group mb-3">
-          <button className="btn btn-info" onClick={() => setIsAuth(true)}>
+          <button className="btn btn-info" onClick={() => signin()}>
             Войти
           </button>
         </div>

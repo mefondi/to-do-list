@@ -7,7 +7,12 @@ import loginState from '../store/loginState.js'
 import { Route, Routes, Navigate } from "react-router-dom";
 
 export default function AppRouter() {
-    const isAuth = loginState((state) => state.isAuth);
+  const {isAuth, isLoadingAuth} = loginState();
+
+  if (isLoadingAuth) {
+    return <div className="spinner-border" role="status"></div>
+  }
+
   return (
     <div className="App">
       {isAuth ? (

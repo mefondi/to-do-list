@@ -3,3 +3,22 @@
   margin: 0;
   padding: 0;
 }
+.post-enter {
+  opacity: 1;
+  transform: translateX(-20px);
+  transition: opacity 500ms, transform 500ms;
+}
+.post-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 500ms, transform 500ms;
+}
+.post-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+.post-exit-active {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: opacity 500ms, transform 500ms;
+}
