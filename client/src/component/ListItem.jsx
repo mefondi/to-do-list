@@ -2,14 +2,17 @@ import React from "react";
 import postsState from '../store/postsState.js'
 import modalState from '../store/modalState.js'
 
-export default function ListItem({post}) {
-    const deletePost = postsState((state) => state.deletePost);
+export default function ListItem({post, index}) {
+    const deletePosts = postsState((state) => state.deletePosts);
     const {setVisibleView, setModalPost} = modalState();
     const date = new Date(post.date)
     const viewPost = () =>{
         setModalPost(post)
         setVisibleView(true)
     }
+    const deletePost = async (id) => {
+      await deletePosts(id)
+    };
 
   return (
     <tr>
@@ -29,7 +32,7 @@ export default function ListItem({post}) {
       )}
         <button className="btn btn-info ms-1" onClick={() => viewPost()}>🔎</button>
         <button className="btn btn-warning ms-1">🖌️</button>
-        <button className="btn btn-danger ms-1" onClick={() => deletePost(post.date)}>❌</button>
+        <button className="btn btn-danger ms-1" onClick={() => deletePost(post._id)}>❌</button>
       </td>
     </tr>
   );

@@ -9,11 +9,11 @@ export default function AddTask() {
   const {visibleAdd, setVisibleAdd} = modalState();
   const addPosts = postsState((state) => state.addPosts);
 
-    const connectHandler = () => {
+    const connectHandler = async () => {
       setVisibleAdd(false);
       setTitle('')
       setDescription('')
-      addPosts({title, description, date:Date.now(), status:'Активна'})
+      await addPosts(title, description, Date.now())
     };
 
   return (

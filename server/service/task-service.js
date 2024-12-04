@@ -8,7 +8,6 @@ class TaskService {
         path: 'user',
         model: 'User',
     })
-      .exec();
     return tasks;
   }
 
@@ -33,7 +32,7 @@ class TaskService {
 
   async remove(id, user) {
     const result = await TaskModel.deleteOne({ _id: id, user});
-    if (!task) {
+    if (!result) {
       throw ApiError.BadRequest('Запись не найдена')
     }
     return result;

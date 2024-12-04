@@ -6,7 +6,7 @@ import {CSSTransition, TransitionGroup} from 'react-transition-group';
 
 export default function List() {
   const sortedPosts = useSortedPosts() 
-  const { fetchPosts, posts, isLoading } = postsState();
+  const { fetchPosts, isLoading } = postsState();
 
   useEffect(() => {
     fetchPosts()
@@ -14,10 +14,10 @@ export default function List() {
 
   return (
     <div className="container">
-      {sortedPosts.length === 0 ? (
-        <h1 className="text-center mb-4 mt-4">Нет доступных записей</h1>
-      ) : ( isLoading ? (
-          <div className="spinner-border" role="status"></div>
+      { isLoading ? (
+        <div className="spinner-border" role="status"></div>
+      ) : ( sortedPosts.length === 0 ? (
+          <h1 className="text-center mb-4 mt-4">Нет доступных записей</h1>
         ) : (
           <table className="table mb-4">
             <thead>
@@ -30,9 +30,9 @@ export default function List() {
             </thead>
             <tbody>
           <TransitionGroup component={null}>
-              {sortedPosts.map((post) => 
-                <CSSTransition key={post.date} timeout={500} classNames="post">
-                <ListItem post={post} />
+              {sortedPosts.map((post, index) =>
+                <CSSTransition key={post._id} timeout={500} classNames="post">
+                  <ListItem post={post} index={index}/>
                 </CSSTransition>
               )}
           </TransitionGroup>

@@ -1,14 +1,8 @@
 import { create } from "zustand";
-import axios from 'axios'
+import TaskService from "../services/TaskService";
 
 const postsState = create((set, get) => ({
-    posts: [
-        {title: 'asd', description:'Active', date: 1, status:'Активна'}, 
-        {title: 'asd', description:'completed', date: 2, status:'Завершена'}, 
-        {title: 'aasas', description:'Active', date: 3, status:'Активна'}, 
-        {title: 'уцй', description:'completed', date: 4, status:'Завершена'}, 
-        {title: 'йуц', description:'Active', date: 5, status:'Активна'}, 
-      ],
+    posts: [],
     filter: {title: "", status: ""},
     sorted: {field: "date", direction: "desc"},
     isLoading: false,
@@ -16,16 +10,37 @@ const postsState = create((set, get) => ({
 
     setSort: (newSort) => set((state) => ({ sorted: { ...state.sorted, ...newSort } })),
     setFilter: (newFilter) => set((state) => ({ filter: { ...state.filter, ...newFilter } })),
-    addPosts: (posts) => set((state) => ({ posts: [...state.posts, posts]})),
-    deletePost: (date) => set((state) => ({ posts: state.posts.filter(p => p.date !== date)})),
+    addPost: (posts) => set((state) => ({ posts: [...state.posts, posts]})),
+    deletePost: (id) => set((state) => ({ posts: state.posts.filter(p => p._id !== id)})),
 
     fetchPosts: async () => {
       set({ isLoading: true, error: null });
       try {
-        const response = await axios.get("https://jsonplaceholder.typicode.com/posts");
+        const response = await TaskService.fetchTasks();
         set({ posts: response.data, isLoading: false });
       } catch (error) {
         set({ error: error.message, isLoading: false });
+        console.log(error.response?.data?.message)
+      }
+    },
+
+    addPosts: async (title, description, date) => {
+      try {
+        const state = get()
+        const response = await TaskService.createTasks(title, description, date);
+        state.addPost(response.data)
+      } catch (error) {
+        console.log(error.response?.data?.message)
+      }
+    },
+    
+    deletePosts: async (id) => {
+      try {
+        const state = get()
+        const response = await TaskService.deleteTasks(id);
+        state.deletePost(id)
+      } catch (error) {
+        console.log(error.response?.data?.message)
       }
     },
 }))

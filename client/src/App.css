@@ -4,7 +4,7 @@
   padding: 0;
 }
 .post-enter {
-  opacity: 1;
+  opacity: 0;
   transform: translateX(-20px);
   transition: opacity 500ms, transform 500ms;
 }

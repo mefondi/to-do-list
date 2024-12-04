@@ -4,10 +4,10 @@ import loginState from '../store/loginState.js'
 
 export default function MyHeader() {
   const {isAuth, setIsAuth} = loginState();
+  const logoutF = loginState((state) => state.logout);
 
-  const logout = () => {
-    setIsAuth(false)
-    localStorage.removeItem('auth')
+  const logout = async () => {
+    await logoutF()
   }
 
   return (

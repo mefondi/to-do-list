@@ -23,6 +23,5 @@ export const useSortedPosts = () => {
             return new Date(b.date) - new Date(a.date);
         }
         }), [filteredPosts, sorted]);
-    
     return sortedPosts;
     };
