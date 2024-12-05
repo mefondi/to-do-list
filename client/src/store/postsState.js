@@ -10,8 +10,6 @@ const postsState = create((set, get) => ({
 
     setSort: (newSort) => set((state) => ({ sorted: { ...state.sorted, ...newSort } })),
     setFilter: (newFilter) => set((state) => ({ filter: { ...state.filter, ...newFilter } })),
-    addPost: (posts) => set((state) => ({ posts: [...state.posts, posts]})),
-    deletePost: (id) => set((state) => ({ posts: state.posts.filter(p => p._id !== id)})),
 
     fetchPosts: async () => {
       set({ isLoading: true, error: null });
@@ -28,7 +26,7 @@ const postsState = create((set, get) => ({
       try {
         const state = get()
         const response = await TaskService.createTasks(title, description, date);
-        state.addPost(response.data)
+        set({ posts: [...state.posts, response.data]});
       } catch (error) {
         console.log(error.response?.data?.message)
       }
@@ -38,7 +36,17 @@ const postsState = create((set, get) => ({
       try {
         const state = get()
         const response = await TaskService.deleteTasks(id);
-        state.deletePost(id)
+        set({ posts: state.posts.filter(p => p._id !== id)});
+      } catch (error) {
+        console.log(error.response?.data?.message)
+      }
+    },
+
+    updatePosts: async (id, title, description, status) => {
+      try {
+        const state = get()
+        const response = await TaskService.updateTasks(id, title, description, status);
+        set({ posts: state.posts.map((post) => (post._id === id ? response.data : post))});
       } catch (error) {
         console.log(error.response?.data?.message)
       }

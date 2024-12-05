@@ -30,9 +30,9 @@ export default function List() {
             </thead>
             <tbody>
           <TransitionGroup component={null}>
-              {sortedPosts.map((post, index) =>
+              {sortedPosts.map((post) =>
                 <CSSTransition key={post._id} timeout={500} classNames="post">
-                  <ListItem post={post} index={index}/>
+                  <ListItem post={post}/>
                 </CSSTransition>
               )}
           </TransitionGroup>

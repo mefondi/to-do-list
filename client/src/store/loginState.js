@@ -49,7 +49,6 @@ const loginState = create((set, get) => ({
       checkAuth: async () => {
         try {
           const response = await axios.get(`${API_URL}/refresh`, {withCredentials: true})
-          console.log(response);
           localStorage.setItem('token', response.data.accessToken);
           set({ isAuth: true, user: response.data.user });
         } catch (error) {

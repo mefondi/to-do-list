@@ -17,10 +17,10 @@ class TaskService {
     return task;
   }
 
-  async update(title, description, date, user, status, id) {
+  async update(title, description, user, status, id) {
     const task = await TaskModel.findOneAndUpdate(
-      { _id: id },
-      { title, description, date, user, status },
+      { _id: id, user },
+      { title, description, status },
       { returnDocument: "after" }
     );
 

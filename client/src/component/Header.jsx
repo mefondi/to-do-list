@@ -3,11 +3,10 @@ import cl from './style/Header.module.css'
 import loginState from '../store/loginState.js'
 
 export default function MyHeader() {
-  const {isAuth, setIsAuth} = loginState();
-  const logoutF = loginState((state) => state.logout);
+  const {isAuth, logout} = loginState();
 
-  const logout = async () => {
-    await logoutF()
+  const logOut = async () => {
+    await logout()
   }
 
   return (
@@ -16,7 +15,7 @@ export default function MyHeader() {
         Navbar
       </p>
       {isAuth? 
-      (<button onClick={() => logout()} className={['btn', 'btn-outline-success', cl.Auth].join(' ')} type="submit">
+      (<button onClick={() => logOut()} className={['btn', 'btn-outline-success', cl.Auth].join(' ')} type="submit">
         Выйти
       </button>)
       :(<div></div>)

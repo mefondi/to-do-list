@@ -3,12 +3,17 @@ import modalState from "../store/modalState.js";
 import postsState from "../store/postsState.js";
 
 export default function Filter() {
-  const setVisibleAdd = modalState((state) => state.setVisibleAdd);
+  const {setVisibleAdd, setWindowMode} = modalState();
   const { filter, setFilter, sorted, setSort} = postsState();
+
+  const addPost = () =>{
+    setWindowMode('add')
+    setVisibleAdd(true)
+  }
 
   return (
     <div className="d-flex justify-content-end align-items-center mb-4 pt-2 mt-2 container">
-      <button className="btn btn-success ms-3 me-auto" onClick={() => setVisibleAdd(true)} >
+      <button className="btn btn-success ms-3 me-auto" onClick={() => addPost(true)} >
         Добавить
       </button>
       <input

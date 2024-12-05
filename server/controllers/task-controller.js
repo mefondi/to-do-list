@@ -26,9 +26,9 @@ class TaskController {
     try {
       const id = req.params.id;
       const user = req.user.id
-      const { title, description, date, status } = req.body;
-      const task = await TaskService.update(title, description, date, user, status, id);
-      return res.json({ message: "true" });
+      const { title, description, status } = req.body;
+      const task = await TaskService.update(title, description, user, status, id);
+      return res.json(task);
     } catch (error) {
       next(error)
     }

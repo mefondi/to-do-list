@@ -7,8 +7,8 @@ export default class TaskService {
     static createTasks(title, description, date){
         return $api.post('/tasks', {title, description, date})
     }
-    static updateTasks(id){
-        return $api.patch('/tasks/'+ id)
+    static updateTasks(id, title, description, status){
+        return $api.patch('/tasks/'+ id, {title, description, status})
     }
     static deleteTasks(id){
         return $api.delete('/tasks/'+ id)
